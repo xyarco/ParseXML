@@ -1,0 +1,33 @@
+<html>
+<head>
+	<script type="text/javascript" src="loadxmldoc.js"></script>
+	<script type="text/javascript" src="validatexml.js"></script>
+	<script type="text/javascript" src="generatehtml.js"></script>
+</head>
+
+<body>
+	<h1>View XML</h1>
+	<form name="myForm" method="POST" id="location">
+		<input type="text" name="URL" maxlength="255" size="100" value="books.xml" />
+		<br/>
+		<input type="button" name="submit" value="Submit Query" onClick="myFunction(this.form)"/>
+	</form>
+	<script type="text/javascript">
+	function myFunction(what){
+		var URL = what.URL.value;
+		var xmlDoc = loadXMLDoc(URL);
+		if(validateXML(xmlDoc)==false){
+			alert("Error in XML file");
+			return null;
+		}
+		if(xmlDoc.getElementsByTagName("book").length==0){
+			alert("No book in XML file");
+			return null;
+		}
+		html_text = generateHTML(xmlDoc);
+		document.write(html_text);
+		return null;
+	}
+	</script>
+</body>
+</html>
